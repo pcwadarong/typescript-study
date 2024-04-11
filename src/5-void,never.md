@@ -17,7 +17,7 @@ a = "hello"; // ❌
 a = undefined;
 ```
 
-그렇다면 undefined나 null 대신 왜 사용할까?
+그렇다면 `undefined`나 `null` 대신 왜 사용할까?
 
 ```ts
 //undefined:
@@ -33,10 +33,9 @@ function func4(): null {
   return null; // return null만을 꼭 다시 써줘야만 함
 }
 ```
-따라서 아무것도 반환하고 싶지 않을 때는 효율성을 위해 void를 사용함
+따라서 아무것도 반환하고 싶지 않을 때는 효율성을 위해 `void`를 사용함
 
-## 
-never
+## never
 - 불가능한 타입
 ```ts
 function fun5(): never {

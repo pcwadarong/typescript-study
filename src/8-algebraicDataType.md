@@ -71,7 +71,7 @@ let union4: Union1 = {
 let variable: number & string; // never 타입
 ```
 
-- Dog의 요소도 Person의 요소도 모두 포함하고 있어야 하기 때문에 한 특성이라도 빠지면 안됨
+- `Dog`의 요소도 `Person`의 요소도 모두 포함하고 있어야 하기 때문에 한 특성이라도 빠지면 안됨
 
 ```ts
 type Intersection = Dog & Person;

@@ -35,7 +35,7 @@ function login1(user: User) {
 ```
 
 - 위의 코드도 문제가 없고 잘 작동하지만, 제 3자가 타입을 알아보기 어려움
-- 이때 서로소 유니온 타입을 사용함 => 각 타입에 tag 프로퍼티를 추가!
+- 이때 서로소 유니온 타입을 사용함 => 각 타입에 `tag` 프로퍼티를 추가!
 
 ```ts
 type Admin = {
@@ -77,7 +77,7 @@ function login2(user: User) {
 ```
 
 - 이전까지의 집합 구조를 살펴보면, `name`, `kickCount`, `point`, `visitCount`가 모두 있는 조합의 가능성으로 인해 교집합이 생성되었음
-- 하지만 tag를 각각 부여해줌으로써 `tag`가 `ADMIN`이면서 `MEMBER`일 순 없으므로 교집합이 사라지고 서로소가 됨
+- 하지만 `tag`를 각각 부여해줌으로써 `tag`가 `ADMIN`이면서 `MEMBER`일 순 없으므로 교집합이 사라지고 서로소가 됨
 - 따라서 태그의 이름으로 간결하게 좁힐 수 있다
 
 ### 비동기 작업의 결과를 처리하는 객체 예시
@@ -131,7 +131,7 @@ function processResult(task: AsyncTask) {
 }
 ```
 
-- 현재는 error나 success가 null이나 undefined 일 수 있기 때문에 옵셔널 체이닝 (?) 혹은 non null (!) 기호를 뒤에 써 줘야만 동작함
+- 현재는 `error`나 `success`가 `null`이나 `undefined` 일 수 있기 때문에 옵셔널 체이닝 (`?`) 혹은 non null (`!`) 기호를 뒤에 써 줘야만 동작함
 - 이때 서로소 유니온 타입을 사용하면 간결하게 바꿀 수 있음
 
 ```ts

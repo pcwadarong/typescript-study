@@ -25,7 +25,7 @@ function func(value: number | string | Date) {
 
 - 그런데 위의 조건문에 `Date` 객체와 `getTime` 메서드를 활용할 경우, `null`값을 추가했을 때 `null` 값 또한 `object`가 반환되기에 오류 발생 가능성이 있음
 - 따라서 `instanceof` 타입 가드를 사용함
-- `A instanceof B`: 좌측 항이 오른쪽에 오는 class의 instance인지 확인함
+- `A instanceof B`: 좌측 항이 오른쪽에 오는 `class`의 `instance`인지 확인함
 
 ```ts
 function func(value: number | string | Date) {

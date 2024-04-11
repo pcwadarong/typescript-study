@@ -34,7 +34,7 @@ function never(): void {
 ```
 
 ## void
-- 중간 타입이자, undefined의 슈퍼타입
+- 중간 타입이자, `undefined`의 슈퍼타입
 
 ```ts
 function voidExam() {

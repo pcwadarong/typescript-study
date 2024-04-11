@@ -64,8 +64,8 @@ const로 선언한 것과 동일한 효과
 let num4 = 10 as const; // 10 Number Literal 타입으로 단언
 ```
 
-- 모든 프로퍼티가 readonly를 갖도록 단언됨
-- 따라서 모든 프로퍼티에 readonly를 쓰지 않고도 같은 효과를 적용할 수 있음
+- 모든 프로퍼티가 `readonly`를 갖도록 단언됨
+- 따라서 모든 프로퍼티에 `readonly`를 쓰지 않고도 같은 효과를 적용할 수 있음
 ```ts
 let cat = {
   name: "야옹이",

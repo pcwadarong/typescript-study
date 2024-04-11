@@ -31,6 +31,7 @@ function func4(): null {
 
 // 따라서 아무것도 반환하고 싶지 않을 때는 void를 사용함
 
+// ---------------------------------
 //never : 불가능한 타입
 function fun5(): never {
   while (true) {} //무한 반복 : 정상적으로 종료될 수 없음

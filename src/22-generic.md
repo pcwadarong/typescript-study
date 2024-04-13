@@ -200,3 +200,268 @@ forEach([1, 2, 3], (it) => {
   console.log(it.toFixed());
 }); //number
 ```
+
+## 제네릭 인터페이스
+
+- 제네릭은 인터페이스에도 적용할 수 있다.
+
+```ts
+interface KeyPair<K, V> {
+  key: K;
+  value: V;
+}
+
+let keyPair: KeyPair = {
+  // ❌
+  key: "key",
+  value: 0,
+};
+
+let keyPair: KeyPair<string, number> = {
+  key: "key",
+  value: 0,
+};
+
+let keyPair2: KeyPair<boolean, string[]> = {
+  key: true,
+  value: ["1"],
+};
+```
+
+- 제네릭 인터페이스는 제네릭 함수와는 다르게 변수의 타입으로 정의할 때 반드시 꺽쇠와 함께 타입 변수(혹은 제네릭 타입 변수, 제네릭 타입 파라미터)에 할당할 타입을 명시해주어야 한다.
+
+### 인덱스 시그니쳐와 함께 사용하기
+
+- 인덱스 시그니쳐와 함께 사용하면 훨씬 더 유연한 객체 타입을 정의할 수 있다.
+
+```ts
+interface Map<V> {
+  [key: string]: V;
+}
+
+let stringMap: Map<string> = {
+  key: "value",
+};
+
+let booleanMap: Map<boolean> = {
+  key: true,
+};
+```
+
+- 이 경우 key는 `string`인 반면 `value`는 꺽쇄 안의 타입과 부합하는 아무 값이나 할당할 수 있기 때문에 훨씬 다양한 값을 넣을 수 있다.
+
+### 제네릭 인터페이스 활용 예시
+
+```ts
+interface Student {
+  type: "student";
+  school: string;
+}
+
+interface Developer {
+  type: "developer";
+  skill: string;
+}
+
+interface User {
+  name: string;
+  profile: Student | Developer;
+}
+
+function goToSchool(user: User) {
+  if (user.profile.type !== "student") {
+    console.log("잘 못 오셨습니다");
+    return;
+  }
+
+  const school = user.profile.school;
+  console.log(`${school}로 등교 완료`);
+}
+
+const developerUser: User = {
+  name: "이정환",
+  profile: {
+    type: "developer",
+    skill: "typescript",
+  },
+};
+
+const studentUser: User = {
+  name: "홍길동",
+  profile: {
+    type: "student",
+    school: "가톨릭대학교",
+  },
+};
+```
+
+- 위처럼 개발자 유저와 학생 유저를 구분하고, 학생 유저일때만 콘솔에 출력하게 하는 프로그램이 있다고 할 때, 매번 User들 중에 if문으로 타입을 좁혀서 한 가지만 골라낸다면 코드가 복잡해질 것입니다.
+- 따라서 `User`옆에 꺽쇄를 붙여 제네릭 타입으로 만들어준다면 쉽게 사용할 수 있습니다.
+
+```ts
+(...)
+interface User<T> {
+  name: string;
+  profile: T;
+}
+
+function goToSchool(user: User<Student>) {
+  const school = user.profile.school;
+  console.log(`${school}로 등교 완료`);
+}
+
+const developerUser: User<Developer> = {(...)};
+
+const studentUser: User<Student> = {(...)};
+```
+
+## 제네릭 타입 별칭
+
+- 제네릭 타입 별칭을 사용할 때에도 제네릭 인터페이스와 마찬가지로 타입으로 정의될 때 반드시 타입 변수에 설정할 타입을 명시해 주어야 한다.
+- 제네릭 인터페이스와 거의 유사하다.
+
+```ts
+type Map<V> = {
+  [key: string]: V;
+};
+
+let stringMap: Map<string> = {
+  key: "string",
+};
+```
+
+## 제네릭 클래스
+
+- 먼저 제네릭이 아닌 간단한 `Number `타입의 리스트를 생성하는 클래스를 만든다.
+
+```ts
+class NumberList {
+  constructor(private list: number[]) {}
+  // 호출할 때 초기값을 주어 필드와 this 생략
+  push(data: number) {
+    this.list.push(data);
+  }
+
+  pop() {
+    return this.list.pop();
+  }
+
+  print() {
+    console.log(this.list);
+  }
+}
+
+const numberList = new NumberList([1, 2, 3]);
+```
+
+- 그런데 이 경우 stringList를 만들면 거의 중복된 코드를 다시 작성해야 한다.
+- 이럴 때 제네릭 클래스를 만들면 쉽게 해결할 수 있다.
+
+```ts
+class List<T> {
+  constructor(private list: T[]) {}
+
+  push(data: T) {
+    this.list.push(data);
+  }
+
+  pop() {
+    return this.list.pop();
+  }
+
+  print() {
+    console.log(this.list);
+  }
+}
+
+const numberList = new List([1, 2, 3]);
+const stringList = new List(["1", "2"]);
+```
+
+- 제네릭 인터페이스나 타입 변칭과는 다르게 초기값으로 전달하는 값의 타입을 추론할 수 있기 때문에 꺽쇄를 달지 않아도 된다.
+
+## 프로미스와 제네릭
+- 프로미스는 `resolve`나 `reject`의 결과값의 타입을 기본적으로 `unknown` 으로 추론한다.
+```ts
+const promise = new Promise((resolve, reject) => {
+  seTimeout(() => {
+    resolve(20);
+  }, 3000);
+});
+
+//response는 unknown 타입
+promise.then((response) => {
+  console.log(response * 10);
+  // ❌ : unknown 타입은 곱셈 불가능
+})
+```
+- 따라서 `resolve`의 경우, Promise뒤에 비동기 함수의 결과값을 따로 선언해주면 동작할 수 있다.
+```ts
+const promise = new Promise<number>((resolve, reject) => {
+  seTimeout(() => {
+    resolve(20);
+    // resolve("20"); ❌ number만 가능
+  }, 3000);
+});
+
+promise.then((response) => {
+  console.log(response * 10); // ✅
+})
+```
+- 그런데 `reject`의 경우 언제나 `any`타입으로 결과값 타입을 정의할 수 없기 때문에 조건문을 통한 타입 좁히기로 안전하게 사용하는 것을 권장한다.
+```ts
+const promise = new Promise<number>((resolve, reject) => {
+  seTimeout(() => {
+    reject("실패"); //혹은 빈칸, 아무 타입 가능
+  }, 3000);
+});
+
+promise.catch((err) => {
+  if (typeof err = "string"){
+    console.log(err);
+  }
+})
+```
+
+### 프로미스를 반환하는 함수의 타입을 정의
+- 인터넷에서 어떤 글을 불러오는 비동기 함수를 작성한다고 가정함.
+```ts
+interface Post {
+  id: number;
+  title: string;
+  content: string;
+}
+
+function fetchPost() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({
+        id: 1,
+        title: "게시글 제목",
+        content: "게시글 본문",
+      });
+    }, 3000);
+  });
+} 
+
+const postRequest = fetchPost();
+
+postRequest.then((post)=> {
+  post.id; // ❌
+})
+```
+- 현재는 Promise의 결과값의 타입을 지정해주지 않았기 때문에 `unknown`으로 추론되어 `post.id` 라는 코드를 실행할 수 없음.
+- 이 경우 아래의 두 가지 방법으로 해결 가능함.
+```ts
+// 1 :타입 변수 선언
+function fetchPost() {
+  return new Promise<Post>((resolve, reject) => {
+    setTimeout(() => { (..) });
+} 
+
+// 2 : 반환값 타입 명시 <- 추천! ✨
+function fetchPost() : Promise<Post>{
+  return new Promise((resolve, reject) => {
+    setTimeout(() => { (..) });
+} 
+```

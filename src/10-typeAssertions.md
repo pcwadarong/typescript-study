@@ -27,7 +27,7 @@ person.name = "이정환";
 person.age = 27;
 ```
 
-breed 라는 초과 프로퍼티가 존재하지만 단언을 사용하여 초과 프로퍼티 검사를 피했음.
+`breed` 라는 초과 프로퍼티가 존재하지만 단언을 사용하여 초과 프로퍼티 검사를 피했음.
 ```ts
 type Dog = {
   name: string;

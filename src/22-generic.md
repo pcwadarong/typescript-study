@@ -82,9 +82,9 @@ let str = returnFirstValue([1, "hello", "mynameis"]);
 // number | string
 ```
 
-- 그런데 현재 매개변수로 `number`와 `string`타입을 전달하기 때문에 타입 스크립트는 0번째로 어떤 타입이 들어올지 알수 없어 `T`는 `String | Number`의 유니온 타입이 됩니다.
+- 그런데 현재 매개변수로 `number`와 `string`타입을 전달하기 때문에 타입 스크립트는 0번째로 어떤 타입이 들어올지 알수 없어 `T`는 `String | Number`의 유니온 타입이 된다.
 
-- 그런데 여기서 반환값의 타입을 배열의 첫 번째 요소의 타입으로 확정짓고 싶다면 `tuple`과 나머지 파라미터를 활용합니다.
+- 그런데 여기서 반환값의 타입을 배열의 첫 번째 요소의 타입으로 확정짓고 싶다면 `tuple`과 나머지 파라미터를 활용한다.
 
 ```ts
 function returnFirstValue<T>(data: [T, ...unknown[]]) {
@@ -133,7 +133,7 @@ getLength(null); // ❌
 
 ### Map 메서드 타입 정의하기
 
-- 우선 일반 함수로 `map` 메서드를 직접 만들고 타입을 정의합니다.
+- 우선 일반 함수로 `map` 메서드를 직접 만들고 타입을 정의한다.
 
 ```ts
 function map(arr: unknown[], callback: (item: unknown) => unknown) {
@@ -145,7 +145,7 @@ function map(arr: unknown[], callback: (item: unknown) => unknown) {
 }
 ```
 
-- 모든 unknown 타입을 타입 변수 T로 대체하여 제네릭 함수로 만든다.
+- 모든 `unknown` 타입을 타입 변수 T로 대체하여 제네릭 함수로 만든다.
 
 ```ts
 function map<T>(arr: T[], callback: (item: T) => T) {
@@ -188,8 +188,8 @@ forEach([1, 2, 3], (it) => {
 });
 ```
 
-- 그런데 이렇게 되면 `unknown`타입을 `toFixed`할 수 없기 때문에 오류가 발생합니다.
-- 따라서 `T`를 사용해서 제레릭 타입으로 바꿔줍니다.
+- 그런데 이렇게 되면 `unknown`타입을 `toFixed`할 수 없기 때문에 오류가 발생함.
+- 따라서 `T`를 사용해서 제레릭 타입으로 바꿔준다.
 
 ```ts
 function forEach<T>(arr: T[], callback: (item: T) => void) {
@@ -296,8 +296,8 @@ const studentUser: User = {
 };
 ```
 
-- 위처럼 개발자 유저와 학생 유저를 구분하고, 학생 유저일때만 콘솔에 출력하게 하는 프로그램이 있다고 할 때, 매번 User들 중에 if문으로 타입을 좁혀서 한 가지만 골라낸다면 코드가 복잡해질 것입니다.
-- 따라서 `User`옆에 꺽쇄를 붙여 제네릭 타입으로 만들어준다면 쉽게 사용할 수 있습니다.
+- 위처럼 개발자 유저와 학생 유저를 구분하고, 학생 유저일때만 콘솔에 출력하게 하는 프로그램이 있다고 할 때, 매번 User들 중에 if문으로 타입을 좁혀서 한 가지만 골라낸다면 코드가 복잡해질 것이다.
+- 따라서 `User`옆에 꺽쇄를 붙여 제네릭 타입으로 만들어준다면 쉽게 사용할 수 있다.
 
 ```ts
 (...)

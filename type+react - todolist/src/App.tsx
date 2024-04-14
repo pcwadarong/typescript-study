@@ -2,14 +2,9 @@ import './App.css';
 import { useState, useRef, useEffect } from 'react';
 import Editor from './components/Editor';
 import TodoItem from './components/TodoItem';
+import { Todo } from './types';
 
 function App() {
-  //todos의 타입 객체로 정의
-  interface Todo {
-    id: number;
-    content: string;
-  }
-
   // Todo 타입을 배열로 가져오는 타입 정의
   const [todos, setTodos] = useState<Todo[]>([]);
 
@@ -35,12 +30,11 @@ function App() {
     <div className="App">
       <h1>Todo</h1>
       <Editor onClickAdd={onClickAdd} />
-      <ul>
+      <div>
         {todos.map((todo) => (
-          <li key={todo.id}>{todo.content}</li>
+          <TodoItem key={todo.id} {...todo} />
         ))}
-      </ul>
-      <TodoItem />
+      </div>
     </div>
   );
 }

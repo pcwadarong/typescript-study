@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useRef, useEffect } from 'react';
 import Editor from './components/Editor';
+import TodoItem from './components/TodoItem';
 
 function App() {
   //todos의 타입 객체로 정의
@@ -33,10 +34,13 @@ function App() {
   return (
     <div className="App">
       <h1>Todo</h1>
-      <Editor onClickAdd={onClickAdd}>
-        {/* ❗ 1. 만약 child를 전달하고 싶다면 */}
-        <div>Child</div>
-      </Editor>
+      <Editor onClickAdd={onClickAdd} />
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id}>{todo.content}</li>
+        ))}
+      </ul>
+      <TodoItem />
     </div>
   );
 }

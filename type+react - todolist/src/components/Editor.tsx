@@ -1,9 +1,7 @@
-import { useState, ReactElement } from 'react';
+import { useState } from 'react';
 
 interface Props {
   onClickAdd: (text: string) => void;
-  // ❗ 2. Props에도 정의해줘야 한다.
-  children: ReactElement;
 }
 
 export default function Editor(props: Props) {

@@ -1,10 +1,16 @@
 console.log("hello");
 let a: number = 5;
 
-type FuncA = string;
-type FuncB = number;
+interface Post {
+  title: string;
+  tags: string[];
+  content: string;
+  thumbnailURL?: string;
+}
 
-type ReturnType<T> = T extends () => string ? string : T;
-
-type A = ReturnType<FuncA>;
-type B = ReturnType<FuncB>;
+const draft: Required<Post> = { // ❌
+    title: "한입 타스 후기",
+    tags: ["ts"],
+    content: "",
+    // thumbnailURL: "https://...",
+  };

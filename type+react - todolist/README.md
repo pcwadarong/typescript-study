@@ -1,4 +1,4 @@
 # React + TypeScript + Vite
 
 - Eslint + Prettier with airbnb
-- Basic Setting
+- React + TypeScript todolist

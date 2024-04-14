@@ -1,7 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, ReactElement } from 'react';
 
 interface Props {
   onClickAdd: (text: string) => void;
+  // ❗ 2. Props에도 정의해줘야 한다.
+  children: ReactElement;
 }
 
 export default function Editor(props: Props) {
@@ -16,7 +18,7 @@ export default function Editor(props: Props) {
 
   const onclickBtn = () => {
     props.onClickAdd(text);
-    setText("");
+    setText('');
   };
 
   return (

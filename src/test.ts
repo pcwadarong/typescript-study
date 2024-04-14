@@ -1,12 +1,10 @@
 console.log("hello");
 let a: number = 5;
 
-function removeSpaces(text: string | undefined | null) {
-    if (typeof text === "string") {
-      return text.replaceAll(" ", "");
-    } else {
-      return undefined;
-    }
-  } 
-  let result = removeSpaces("hi im winterlood") as string;
-  result.toUpperCase();
+type FuncA = string;
+type FuncB = number;
+
+type ReturnType<T> = T extends () => string ? string : T;
+
+type A = ReturnType<FuncA>;
+type B = ReturnType<FuncB>;

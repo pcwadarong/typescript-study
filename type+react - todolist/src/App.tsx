@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import Editor from './components/Editor';
 import TodoItem from './components/TodoItem';
 import { Todo } from './types';
@@ -21,10 +21,9 @@ function App() {
     ]);
   };
 
-  //화면에 리스트를 띄우기 전에 작동하는지 확인하기 위함
-  useEffect(() => {
-    console.log(todos);
-  }, [todos]);
+  const onClickDelete = (id: number) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
 
   return (
     <div className="App">
@@ -32,7 +31,7 @@ function App() {
       <Editor onClickAdd={onClickAdd} />
       <div>
         {todos.map((todo) => (
-          <TodoItem key={todo.id} {...todo} />
+          <TodoItem key={todo.id} {...todo} onClickDelete={onClickDelete} />
         ))}
       </div>
     </div>

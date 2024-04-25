@@ -1,4 +1,5 @@
 import { Todo } from '../types';
+
 interface Props extends Todo {
   onClickDelete: (id: number) => void;
 }
